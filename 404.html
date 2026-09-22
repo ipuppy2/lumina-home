@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Lumina Markdown，为 macOS 打造的专注 Markdown 阅读器。">
+  <meta name="lumina-download-api" content="https://YOUR-BACKEND-DOMAIN">
   <title>Lumina Markdown · 专注阅读 Markdown</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%231679ff'/%3E%3Cstop offset='1' stop-color='%236354e9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='20' fill='url(%23g)'/%3E%3Ctext x='32' y='43' fill='white' font-family='Arial,sans-serif' font-size='34' font-weight='700' text-anchor='middle'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
   <style>
@@ -136,13 +137,13 @@
     <div class="wrap">
       <nav>
         <a class="brand" href="./"><span class="brand-mark">✦</span> Lumina Markdown</a>
-        <div class="nav-end"><div class="nav-links"><a href="#plans" data-mark="◫">版本权益</a><a href="#features" data-mark="✦">高级功能</a><a href="#license" data-mark="⌁">授权方式</a></div><a class="nav-download" href="https://github.com/puppy-chrome/lumina-markdown/releases/latest">下载 macOS 版 ↓</a></div>
+        <div class="nav-end"><div class="nav-links"><a href="#plans" data-mark="◫">版本权益</a><a href="#features" data-mark="✦">高级功能</a><a href="#license" data-mark="⌁">授权方式</a></div><a class="nav-download" href="#" data-download>下载 macOS 版 ↓</a></div>
       </nav>
       <div class="hero-grid">
         <div class="hero-copy-block"><div class="eyebrow"><span class="pulse"></span> 专注 Markdown 的原生阅读体验</div>
           <h1>读得沉浸，<span>用得自由。</span></h1>
           <p class="hero-copy">Lumina Markdown 是为 macOS 打造的 Markdown 阅读器。免费版满足日常阅读，授权版解除创作与知识库管理中的效率限制。</p>
-          <div class="actions"><a class="button primary" href="https://github.com/puppy-chrome/lumina-markdown/releases/latest">下载 macOS 版 <span>↓</span></a><a class="button ghost" href="#plans">查看版本权益</a></div>
+          <div class="actions"><a class="button primary" href="#" data-download>下载 macOS 版 <span>↓</span></a><a class="button ghost" href="#plans">查看版本权益</a></div>
           <div class="download-note"><span>●</span> 适用于 macOS · 本地文件优先 · 账号授权实时同步</div>
           <div class="quick-points"><span>原生 macOS 体验</span><span>数学公式与图表</span><span>PDF 高质量导出</span></div>
         </div>
@@ -256,7 +257,7 @@
     </div></section>
   </main>
 
-  <section class="cta"><div class="wrap cta-content"><div><h2>从一篇文档，到整个知识库。</h2><p>在 Lumina Markdown 中登录已授权账号，即可解锁完整效率体验。</p></div><a class="button" href="https://github.com/puppy-chrome/lumina-markdown/releases/latest">下载 macOS 版 ↓</a></div></section>
+  <section class="cta"><div class="wrap cta-content"><div><h2>从一篇文档，到整个知识库。</h2><p>在 Lumina Markdown 中登录已授权账号，即可解锁完整效率体验。</p></div><a class="button" href="#" data-download>下载 macOS 版 ↓</a></div></section>
   <footer><div class="wrap"><span>© Lumina Markdown</span><span>本地阅读 · 安全授权 · 专注内容</span></div></footer>
   <script>
     const observer = new IntersectionObserver((entries) => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), { threshold: .14 });
@@ -267,6 +268,17 @@
       document.querySelectorAll('.demo-tab').forEach(item => item.classList.toggle('active', item === button));
       document.querySelectorAll('.demo-panel').forEach(panel => panel.classList.toggle('active', panel.dataset.panel === target));
       document.getElementById('demo-title').textContent = demoTitles[target];
+    }));
+    const downloadApi = document.querySelector('meta[name="lumina-download-api"]')?.content?.replace(/\/$/, '');
+    document.querySelectorAll('[data-download]').forEach(button => button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      if (!downloadApi || downloadApi.includes('YOUR-BACKEND-DOMAIN')) { alert('下载服务尚未配置，请稍后再试。'); return; }
+      try {
+        const response = await fetch(downloadApi + '/download-url', { headers: { Accept: 'application/json' } });
+        const payload = await response.json();
+        if (!response.ok || !payload.url) throw new Error(payload.error || '下载服务暂不可用');
+        window.location.assign(payload.url);
+      } catch (error) { alert(error.message || '下载服务暂不可用，请稍后重试。'); }
     }));
   </script>
 </body>
