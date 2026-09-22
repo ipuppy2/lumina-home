@@ -277,7 +277,12 @@
         const response = await fetch(downloadApi + '/download-url', { headers: { Accept: 'application/json' } });
         const payload = await response.json();
         if (!response.ok || !payload.url) throw new Error(payload.error || '下载服务暂不可用');
-        window.location.assign(payload.url);
+        const frame = document.createElement('iframe');
+        frame.src = payload.url;
+        frame.hidden = true;
+        frame.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(frame);
+        window.setTimeout(() => frame.remove(), 60000);
       } catch (error) { alert(error.message || '下载服务暂不可用，请稍后重试。'); }
     }));
   </script>
