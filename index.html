@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Lumina Markdown，为 macOS 打造的专注 Markdown 阅读器。">
   <title>Lumina Markdown · 专注阅读 Markdown</title>
+  <link rel="stylesheet" href="vendor/viewerjs/viewer.min.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%231679ff'/%3E%3Cstop offset='1' stop-color='%236354e9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='20' fill='url(%23g)'/%3E%3Ctext x='32' y='43' fill='white' font-family='Arial,sans-serif' font-size='34' font-weight='700' text-anchor='middle'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
   <style>
     :root { --ink:#17233c; --muted:#68738b; --line:#e8ecf4; --blue:#146cf5; --blue-dark:#0758d7; --paper:#fff; --mist:#f5f8ff; --violet:#7656ef; --green:#12a878; }
@@ -65,11 +66,24 @@
     .kicker { color:var(--blue); font-size:13px; letter-spacing:1.3px; font-weight:800; text-transform:uppercase; margin-bottom:2px; }
     h2 { margin:0; font-size:34px; letter-spacing:-1.2px; line-height:1.22; }
     .section-note { max-width:640px; margin:4px 0 0; color:var(--muted); line-height:1.68; font-size:14.5px; }
-    .screenshots { background:var(--mist); }
-    .screenshot-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
-    .screenshot { margin:0; overflow:hidden; border:1px solid #e2eaf7; border-radius:16px; background:#fff; box-shadow:0 10px 28px #2348750a; }
-    .screenshot img { display:block; width:100%; aspect-ratio:16/10; object-fit:cover; }
+    .screenshots { background:linear-gradient(180deg,#f5f8ff,#f9fbff); }
+    .screenshot-viewport { overflow:hidden; }
+    .screenshot-track { display:flex; transition:transform .45s cubic-bezier(.16,1,.3,1); }
+    .screenshot-page { flex:0 0 100%; width:100%; }
+    .screenshot-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+    .screenshot { margin:0; overflow:hidden; border:1px solid #e2eaf7; border-radius:17px; background:#fff; box-shadow:0 14px 34px #2348750c; transition:transform .22s ease,box-shadow .22s ease; }
+    .screenshot:hover { transform:translateY(-3px); box-shadow:0 20px 42px #23487518; }
+    .screenshot-image { padding:10px; background:linear-gradient(145deg,#f2f6fc,#e8eef8); }
+    .screenshot img { display:block; width:100%; aspect-ratio:1.955/1; object-fit:cover; border:1px solid #dbe3ef; border-radius:9px; box-shadow:0 5px 14px #1d355714; cursor:zoom-in; }
+    .screenshot:focus-within { outline:3px solid #146cf588; outline-offset:3px; }
     .screenshot figcaption { padding:13px 16px; color:#35435b; font-size:13px; font-weight:680; }
+    .screenshot-controls { display:flex; align-items:center; justify-content:center; gap:18px; margin-top:26px; }
+    .screenshot-arrow { display:grid; place-items:center; width:42px; height:42px; padding:0; border:1px solid #dce5f2; border-radius:50%; color:#34435b; background:#fff; box-shadow:0 5px 14px #2348750c; cursor:pointer; transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease; }
+    .screenshot-arrow:hover:not(:disabled) { transform:translateY(-2px); border-color:#a9c9f5; color:var(--blue); background:#f6faff; }
+    .screenshot-arrow:focus-visible { outline:3px solid #146cf588; outline-offset:3px; }
+    .screenshot-arrow:disabled { color:#aeb8c8; background:#f6f8fb; box-shadow:none; cursor:default; }
+    .screenshot-arrow svg { width:17px; height:17px; }
+    .screenshot-page-count { min-width:52px; color:#55637a; font-size:13px; font-variant-numeric:tabular-nums; text-align:center; }
     .plans { display:grid; grid-template-columns:1fr 1.08fr; gap:18px; align-items:stretch; }
     .plan { position:relative; padding:31px; border:1px solid var(--line); border-radius:20px; background:#fff; overflow:hidden; }
     .plan.pro { border-color:#8cb8ff; background:linear-gradient(145deg,#edf5ff 0%,#fff 57%); box-shadow:0 18px 42px #146cf51c; }
@@ -185,6 +199,7 @@
     @keyframes rise { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } } @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } } @keyframes breathe { 0%,100% { transform:scale(.95); opacity:.65; } 50% { transform:scale(1.07); opacity:1; } }
     @media(max-width:820px) { .nav-links { display:none; } .hero { padding-top:94px; } .hero-grid { grid-template-columns:1fr; } .product-stage { max-width:550px; width:100%; margin:0 auto; height:365px; } section { padding:65px 0; } .plans,.flow,.pay-qr-grid { grid-template-columns:1fr; } .screenshot-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .pay-board { padding:22px 18px; } .pay-board-head { flex-direction:column; gap:16px; } .pay-price-tag { width:100%; text-align:left; } .pay-price-line { justify-content:flex-start; } .pay-steps { grid-template-columns:1fr; gap:12px; } .step-arrow { display:none; } .feature-grid { grid-template-columns:repeat(2,1fr); } .playground-shell { grid-template-columns:1fr; }.playground-nav { border-right:0; border-bottom:1px solid #e5edf8; }.demo-tabs { display:flex; gap:6px; overflow:auto; }.demo-tab { flex:1 0 170px; }.demo-tab + .demo-tab { margin-top:0; }.demo-hint { display:none; }.section-top,.cta-content { align-items:start; flex-direction:column; } .section-note { flex:auto; max-width:560px; } }
     @media(max-width:480px) { .wrap { width:min(100% - 30px,1120px); } nav { width:calc(100% - 30px); top:7px; height:54px; } h1 { font-size:35px; letter-spacing:-2px; } .hero-copy { font-size:14px; } .actions { flex-direction:column; align-items:stretch; } .button { justify-content:center; } .feature-grid,.screenshot-grid { grid-template-columns:1fr; } .plan { padding:24px; } .qr-poster-wrap img { max-width:210px; } .pay-notice-box { flex-direction:column; gap:10px; } }
+    @media(prefers-reduced-motion:reduce) { .screenshot-track,.screenshot,.screenshot-arrow { transition:none; } .screenshot:hover { transform:none; } }
   </style>
 </head>
 <body>
@@ -193,7 +208,7 @@
     <div class="wrap">
       <nav>
         <a class="brand" href="./"><span class="brand-mark">✦</span> Lumina Markdown</a>
-        <div class="nav-end"><div class="nav-links"><a href="#plans" data-mark="◫">版本权益</a><a href="#features" data-mark="✦">高级功能</a><a href="#pay" data-mark="¥">购买授权</a></div><a class="nav-download" href="https://github.com/puppy-chrome/lumina-markdown/releases/latest">下载 macOS 版 ↓</a></div>
+        <div class="nav-end"><div class="nav-links"><a href="#screenshots" data-mark="▧">产品截图</a><a href="#plans" data-mark="◫">版本权益</a><a href="#features" data-mark="✦">高级功能</a><a href="#pay" data-mark="¥">购买授权</a></div><a class="nav-download" href="https://github.com/puppy-chrome/lumina-markdown/releases/latest">下载 macOS 版 ↓</a></div>
       </nav>
       <div class="hero-grid">
         <div class="hero-copy-block"><div class="eyebrow"><span class="pulse"></span> 专注 Markdown 的原生阅读体验</div>
@@ -213,15 +228,38 @@
       <div class="section-top">
         <div class="kicker">App Screenshots</div>
         <h2>Lumina Markdown，真实界面一览</h2>
-        <p class="section-note">从沉浸阅读到知识库管理，看看 Lumina 如何陪你处理 Markdown 文档。</p>
+        <p class="section-note">从沉浸阅读到知识库管理，看看 Lumina 如何陪你处理 Markdown 文档。每组最多 4 张，可左右切换。</p>
       </div>
-      <div class="screenshot-grid">
-        <figure class="screenshot"><img src="images/screenshot-placeholder.svg" alt="阅读界面截图占位" loading="lazy"><figcaption>沉浸式 Markdown 阅读</figcaption></figure>
-        <figure class="screenshot"><img src="images/screenshot-placeholder.svg" alt="文档大纲截图占位" loading="lazy"><figcaption>文档大纲与多标签页</figcaption></figure>
-        <figure class="screenshot"><img src="images/screenshot-placeholder.svg" alt="全局搜索截图占位" loading="lazy"><figcaption>跨文档全局搜索</figcaption></figure>
-        <figure class="screenshot"><img src="images/screenshot-placeholder.svg" alt="文件夹工作区截图占位" loading="lazy"><figcaption>本地文件夹工作区</figcaption></figure>
-        <figure class="screenshot"><img src="images/screenshot-placeholder.svg" alt="导出功能截图占位" loading="lazy"><figcaption>PDF 与长图导出</figcaption></figure>
-        <figure class="screenshot"><img src="images/screenshot-placeholder.svg" alt="应用设置截图占位" loading="lazy"><figcaption>贴合习惯的阅读设置</figcaption></figure>
+      <div class="screenshot-carousel" role="region" aria-roledescription="carousel" aria-label="产品截图">
+        <div class="screenshot-viewport">
+          <div class="screenshot-track">
+            <div class="screenshot-page" aria-hidden="false">
+              <div class="screenshot-grid">
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/global-search.webp" alt="Lumina Markdown 跨文档搜索界面" loading="lazy" tabindex="0" role="button"></div><figcaption>跨文档全局搜索</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/reading-settings.webp" alt="Lumina Markdown 阅读习惯设置" loading="lazy" tabindex="0" role="button"></div><figcaption>贴合习惯的排版与阅读设置</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/diagrams.webp" alt="Lumina Markdown Mermaid 图表渲染" loading="lazy" tabindex="0" role="button"></div><figcaption>流程图与技术图表渲染</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/export-tasks.webp" alt="Lumina Markdown 导出任务管理" loading="lazy" tabindex="0" role="button"></div><figcaption>长图与文档导出任务</figcaption></figure>
+              </div>
+            </div>
+            <div class="screenshot-page" aria-hidden="true" inert>
+              <div class="screenshot-grid">
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/pdf-preview.webp" alt="Lumina Markdown PDF 导出预览" loading="lazy" tabindex="0" role="button"></div><figcaption>PDF 导出与预览</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/pdf-export-dialog.webp" alt="Lumina Markdown PDF 导出设置窗口" loading="lazy" tabindex="0" role="button"></div><figcaption>灵活控制 PDF 导出</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/image-export-preview.webp" alt="Lumina Markdown 图片导出预览" loading="lazy" tabindex="0" role="button"></div><figcaption>长文档图片导出效果</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/image-export-dialog.webp" alt="Lumina Markdown 图片导出流程" loading="lazy" tabindex="0" role="button"></div><figcaption>一键导出长图</figcaption></figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-controls" role="group" aria-label="截图翻页控制">
+          <button class="screenshot-arrow" type="button" data-page-action="previous" aria-label="上一组截图" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <span class="screenshot-page-count" aria-live="polite">1 / 2</span>
+          <button class="screenshot-arrow" type="button" data-page-action="next" aria-label="下一组截图">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </div></section>
 
@@ -440,9 +478,41 @@
 
   <section class="cta"><div class="wrap cta-content"><div><h2>从一篇文档，到整个知识库。</h2><p>当前特惠 ¥5。注册后转账并备注邮箱，最晚 24 小时内完成升级。</p></div><a class="button" href="#pay">查看收款码</a></div></section>
   <footer><div class="wrap"><span>© Lumina Markdown</span><span>本地阅读 · 安全授权 · 专注内容</span></div></footer>
+  <script src="vendor/viewerjs/viewer.min.js"></script>
   <script>
     const observer = new IntersectionObserver((entries) => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), { threshold: .14 });
     document.querySelectorAll('.reveal').forEach(node => observer.observe(node));
+    const screenshotPages = [...document.querySelectorAll('.screenshot-page')];
+    screenshotPages.forEach((page) => new Viewer(page.querySelector('.screenshot-grid'), {
+      navbar: true,
+      title: 1,
+      toolbar: { zoomIn: 1, zoomOut: 1, oneToOne: 1, reset: 1, prev: 1, next: 1 },
+    }));
+    const screenshotTrack = document.querySelector('.screenshot-track');
+    const screenshotPageCount = document.querySelector('.screenshot-page-count');
+    const previousScreenshotButton = document.querySelector('[data-page-action="previous"]');
+    const nextScreenshotButton = document.querySelector('[data-page-action="next"]');
+    let activeScreenshotPage = 0;
+    function showScreenshotPage(index) {
+      activeScreenshotPage = Math.max(0, Math.min(index, screenshotPages.length - 1));
+      screenshotTrack.style.transform = `translateX(-${activeScreenshotPage * 100}%)`;
+      screenshotPages.forEach((page, pageIndex) => {
+        const isActive = pageIndex === activeScreenshotPage;
+        page.inert = !isActive;
+        page.setAttribute('aria-hidden', String(!isActive));
+      });
+      screenshotPageCount.textContent = `${activeScreenshotPage + 1} / ${screenshotPages.length}`;
+      previousScreenshotButton.disabled = activeScreenshotPage === 0;
+      nextScreenshotButton.disabled = activeScreenshotPage === screenshotPages.length - 1;
+    }
+    previousScreenshotButton.addEventListener('click', () => showScreenshotPage(activeScreenshotPage - 1));
+    nextScreenshotButton.addEventListener('click', () => showScreenshotPage(activeScreenshotPage + 1));
+    document.querySelector('.screenshot-carousel').addEventListener('keydown', (event) => {
+      if (event.target.matches('img') && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        event.target.click();
+      }
+    });
     const demoTitles = { search: '跨文档全局搜索', watch: '目录实时刷新', image: '文档转图片' };
     document.querySelectorAll('.demo-tab').forEach(button => button.addEventListener('click', () => {
       const target = button.dataset.demo;
