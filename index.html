@@ -25,6 +25,8 @@
     .nav-links a::before { content:attr(data-mark); display:grid; place-items:center; width:16px; height:16px; border-radius:5px; color:#477fd1; background:#edf4ff; font-size:10px; font-weight:800; transition:transform .18s ease,background .18s ease,color .18s ease; }
     .nav-links a:nth-child(2)::before { color:#7a5bd1; background:#f1edff; }
     .nav-links a:nth-child(3)::before { color:#148765; background:#e9f8f1; }
+    .nav-links a:nth-child(4)::before { color:#c05621; background:#fffaf0; }
+    .nav-links a:nth-child(5)::before { color:#108a9f; background:#e6f8fa; }
     .nav-links a:hover { color:var(--blue); background:rgba(255,255,255,.72); transform:translateY(-1px); }
     .nav-links a:hover::before { color:#fff; background:var(--blue); transform:rotate(-6deg) scale(1.07); }
     .nav-download { padding:9px 13px; border-radius:9px; color:#fff; background:var(--ink); font-size:12px; font-weight:750; transition:transform .18s ease,background .18s ease; }
@@ -195,12 +197,31 @@
     .cta h2 { margin:0; font-size:32px; }
     .cta p { margin:11px 0 0; color:#bdc9dc; font-size:14px; }
     .cta .button { background:#fff; color:#175ecf; }
-    footer { padding:25px 0 33px; color:#8892a5; font-size:12px; }
-    footer .wrap { display:flex; justify-content:space-between; gap:12px; }
+    .contact-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+    .contact-card { display:flex; align-items:flex-start; gap:18px; padding:28px 24px; border:1px solid var(--line); border-radius:18px; background:#fff; box-shadow:0 10px 28px #2348750a; transition:transform .2s ease,box-shadow .2s ease; }
+    .contact-card:hover { transform:translateY(-3px); box-shadow:0 16px 36px #23487514; }
+    .contact-icon { width:52px; height:52px; flex-shrink:0; border-radius:14px; display:grid; place-items:center; }
+    .contact-icon.qq-icon { background:linear-gradient(135deg,#12b8f6,#0078d7); color:#fff; box-shadow:0 8px 18px #12b8f638; }
+    .contact-icon.email-icon { background:linear-gradient(135deg,#146cf5,#6354e9); color:#fff; box-shadow:0 8px 18px #146cf538; }
+    .contact-details { flex:1; min-width:0; }
+    .contact-label { display:block; font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+    .contact-value-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
+    .contact-value { font-size:22px; font-weight:780; color:var(--ink); letter-spacing:-.4px; }
+    .contact-email-link { color:var(--blue); text-decoration:none; transition:color .18s; }
+    .contact-email-link:hover { color:var(--blue-dark); text-decoration:underline; }
+    .contact-copy-btn { padding:5px 12px; border:1px solid #dce4f0; border-radius:8px; background:#f6f9fc; color:#4a5568; font-size:12px; font-weight:600; cursor:pointer; transition:all .18s ease; }
+    .contact-copy-btn:hover { background:#e8f0fe; border-color:#bed6fc; color:var(--blue); }
+    .contact-desc { margin:0; font-size:13px; color:var(--muted); line-height:1.6; }
+    footer { padding:26px 0 34px; color:#8892a5; font-size:12.5px; border-top:1px solid var(--line); }
+    .footer-wrap { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .footer-brand { display:flex; align-items:center; gap:8px; }
+    .footer-contacts { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .footer-contacts a { color:#0a61df; text-decoration:underline; }
+    .footer-sep { color:#cbd5e1; }
     .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1); }.reveal.visible { opacity:1; transform:none; }.plans .plan:nth-child(2),.feature:nth-child(even),.flow-item:nth-child(2) { transition-delay:.1s; }.feature:nth-child(3),.flow-item:nth-child(3){transition-delay:.18s}.feature:nth-child(4){transition-delay:.26s}.feature:nth-child(5){transition-delay:.34s}.feature:nth-child(6){transition-delay:.42s}.feature:nth-child(7){transition-delay:.5s}
     @keyframes rise { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } } @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } } @keyframes breathe { 0%,100% { transform:scale(.95); opacity:.65; } 50% { transform:scale(1.07); opacity:1; } }
-    @media(max-width:820px) { .nav-links { display:none; } .hero { padding-top:94px; } .hero-grid { grid-template-columns:1fr; } .product-stage { max-width:550px; width:100%; margin:0 auto; height:365px; } section { padding:65px 0; } .plans,.flow,.pay-qr-grid { grid-template-columns:1fr; } .screenshot-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .pay-board { padding:22px 18px; } .pay-board-head { flex-direction:column; gap:16px; } .pay-price-tag { width:100%; text-align:left; } .pay-price-line { justify-content:flex-start; } .pay-steps { grid-template-columns:1fr; gap:12px; } .step-arrow { display:none; } .feature-grid { grid-template-columns:repeat(2,1fr); } .playground-shell { grid-template-columns:1fr; }.playground-nav { border-right:0; border-bottom:1px solid #e5edf8; }.demo-tabs { display:flex; gap:6px; overflow:auto; }.demo-tab { flex:1 0 170px; }.demo-tab + .demo-tab { margin-top:0; }.demo-hint { display:none; }.section-top,.cta-content { align-items:start; flex-direction:column; } .section-note { flex:auto; max-width:560px; } }
-    @media(max-width:480px) { .wrap { width:min(100% - 30px,1120px); } nav { width:calc(100% - 30px); top:7px; height:54px; } h1 { font-size:35px; letter-spacing:-2px; } .hero-copy { font-size:14px; } .actions { flex-direction:column; align-items:stretch; } .button { justify-content:center; } .feature-grid,.screenshot-grid { grid-template-columns:1fr; } .plan { padding:24px; } .qr-poster-wrap img { max-width:210px; } .pay-notice-box { flex-direction:column; gap:10px; } }
+    @media(max-width:820px) { .nav-links { display:none; } .hero { padding-top:94px; } .hero-grid { grid-template-columns:1fr; } .product-stage { max-width:550px; width:100%; margin:0 auto; height:365px; } section { padding:65px 0; } .plans,.flow,.pay-qr-grid,.contact-grid { grid-template-columns:1fr; } .screenshot-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .pay-board { padding:22px 18px; } .pay-board-head { flex-direction:column; gap:16px; } .pay-price-tag { width:100%; text-align:left; } .pay-price-line { justify-content:flex-start; } .pay-steps { grid-template-columns:1fr; gap:12px; } .step-arrow { display:none; } .feature-grid { grid-template-columns:repeat(2,1fr); } .playground-shell { grid-template-columns:1fr; }.playground-nav { border-right:0; border-bottom:1px solid #e5edf8; }.demo-tabs { display:flex; gap:6px; overflow:auto; }.demo-tab { flex:1 0 170px; }.demo-tab + .demo-tab { margin-top:0; }.demo-hint { display:none; }.section-top,.cta-content,.footer-wrap { align-items:start; flex-direction:column; } .section-note { flex:auto; max-width:560px; } }
+    @media(max-width:480px) { .wrap { width:min(100% - 30px,1120px); } nav { width:calc(100% - 30px); top:7px; height:54px; } h1 { font-size:35px; letter-spacing:-2px; } .hero-copy { font-size:14px; } .actions { flex-direction:column; align-items:stretch; } .button { justify-content:center; } .feature-grid,.screenshot-grid { grid-template-columns:1fr; } .plan { padding:24px; } .contact-card { padding:20px; } .contact-value { font-size:19px; } .qr-poster-wrap img { max-width:210px; } .pay-notice-box { flex-direction:column; gap:10px; } }
     @media(prefers-reduced-motion:reduce) { .screenshot-track,.screenshot,.screenshot-arrow { transition:none; } .screenshot:hover { transform:none; } }
   </style>
 </head>
@@ -210,7 +231,7 @@
     <div class="wrap">
       <nav>
         <a class="brand" href="./"><span class="brand-mark">✦</span> Lumina Markdown</a>
-        <div class="nav-end"><div class="nav-links"><a href="#screenshots" data-mark="▧">产品截图</a><a href="#plans" data-mark="◫">版本权益</a><a href="#features" data-mark="✦">高级功能</a><a href="#pay" data-mark="¥">购买授权</a></div><a class="nav-download" href="#" data-download>下载 macOS 版 ↓</a></div>
+        <div class="nav-end"><div class="nav-links"><a href="#screenshots" data-mark="▧">产品截图</a><a href="#plans" data-mark="◫">版本权益</a><a href="#features" data-mark="✦">高级功能</a><a href="#pay" data-mark="¥">购买授权</a><a href="#contact" data-mark="✉">联系我们</a></div><a class="nav-download" href="#" data-download>下载 macOS 版 ↓</a></div>
       </nav>
       <div class="hero-grid">
         <div class="hero-copy-block"><div class="eyebrow"><span class="pulse"></span> 专注 Markdown 的原生阅读体验</div>
@@ -472,7 +493,44 @@
           </div>
           <div class="notice-content">
             <h4>重要须知：转账时请务必填写你在 macOS App 注册的邮箱</h4>
-            <p>我们会根据转账备注中的注册邮箱为您的账号升级权益。如果转账时遗漏了备注，请保留支付凭证截图，并通过邮件联系 <a href="mailto:lyx.puppy@qq.com" style="color:#0b63db;text-decoration:underline;">lyx.puppy@qq.com</a>，我们将第一时间为您人工开通。</p>
+            <p>我们会根据转账备注中的注册邮箱为您的账号升级权益。如果转账时遗漏了备注，请保留支付凭证截图，并通过 QQ (2983872335) 或邮件联系 <a href="mailto:lumina-md@qq.com" style="color:#0b63db;text-decoration:underline;">lumina-md@qq.com</a>，我们将第一时间为您人工开通。</p>
+          </div>
+        </div>
+      </div>
+    </div></section>
+
+    <section id="contact" class="reveal"><div class="wrap">
+      <div class="section-top">
+        <div class="kicker">Contact Us</div>
+        <h2>联系我们</h2>
+        <p class="section-note">使用过程中有任何功能建议、问题反馈、商务合作或授权激活疑问，欢迎随时与我们沟通交流。</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon qq-icon">
+            <svg viewBox="0 0 16 16" width="26" height="26" fill="currentColor"><path d="M8.21 0c-3.11 0-4.77 2.22-4.77 5.09 0 .88.24 1.78.68 2.51-.23.27-.47.6-.71.97-.68 1.05-.9 1.87-.69 2.37.21.5.85.65 1.73.43.34.64.76 1.2 1.25 1.66-.46.33-.94.67-1.42.99-.44.29-.65.59-.57.85.12.38.79.46 1.77.24.8-.18 1.63-.48 2.39-.89.47.06.96.09 1.45.09.49 0 .97-.03 1.45-.09.76.41 1.59.71 2.39.89.98.22 1.65.14 1.77-.24.08-.26-.13-.56-.57-.85-.48-.32-.96-.66-1.42-.99.49-.46.91-1.02 1.25-1.66.88.22 1.52.07 1.73-.43.21-.5-.01-1.32-.69-2.37-.24-.37-.48-.7-.71-.97.44-.73.68-1.63.68-2.51C12.98 2.22 11.32 0 8.21 0z"/></svg>
+          </div>
+          <div class="contact-details">
+            <span class="contact-label">官方 QQ 支持与交流</span>
+            <div class="contact-value-row">
+              <span class="contact-value">2983872335</span>
+              <button type="button" class="contact-copy-btn" onclick="copyContact('2983872335', this)">复制 QQ</button>
+            </div>
+            <p class="contact-desc">欢迎添加 QQ 在线交流、一对一反馈问题或咨询功能详情。</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon email-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          </div>
+          <div class="contact-details">
+            <span class="contact-label">官方服务与支持邮箱</span>
+            <div class="contact-value-row">
+              <a href="mailto:lumina-md@qq.com" class="contact-value contact-email-link">lumina-md@qq.com</a>
+              <button type="button" class="contact-copy-btn" onclick="copyContact('lumina-md@qq.com', this)">复制邮箱</button>
+            </div>
+            <p class="contact-desc">支持邮件咨询、授权开通补发、体验反馈与商务合作交流。</p>
           </div>
         </div>
       </div>
@@ -480,7 +538,21 @@
   </main>
 
   <section class="cta"><div class="wrap cta-content"><div><h2>从一篇文档，到整个知识库。</h2><p>当前特惠 ¥5。注册后转账并备注邮箱，最晚 24 小时内完成升级。</p></div><a class="button" href="#pay">查看收款码</a></div></section>
-  <footer><div class="wrap"><span>© Lumina Markdown</span><span>本地阅读 · 安全授权 · 专注内容</span></div></footer>
+  <footer>
+    <div class="wrap footer-wrap">
+      <div class="footer-brand">
+        <span>© Lumina Markdown</span>
+        <span class="footer-sep">·</span>
+        <span>本地阅读 · 安全授权 · 专注内容</span>
+      </div>
+      <div class="footer-contacts">
+        <span>联系我们：</span>
+        <span>QQ: <strong>2983872335</strong></span>
+        <span class="footer-sep">·</span>
+        <span>邮箱: <a href="mailto:lumina-md@qq.com">lumina-md@qq.com</a></span>
+      </div>
+    </div>
+  </footer>
   <script src="vendor/viewerjs/viewer.min.js"></script>
   <script>
     const observer = new IntersectionObserver((entries) => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), { threshold: .14 });
@@ -574,6 +646,39 @@
       button.textContent = '已开始下载';
       window.setTimeout(() => { button.textContent = original; button.removeAttribute('aria-busy'); }, 1800);
     }));
+    function copyContact(text, btn) {
+      function showSuccess() {
+        const orig = btn.textContent;
+        btn.textContent = '已复制 ✓';
+        btn.style.borderColor = '#12a878';
+        btn.style.color = '#12a878';
+        btn.style.background = '#e9f8f1';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.borderColor = '';
+          btn.style.color = '';
+          btn.style.background = '';
+        }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showSuccess).catch(() => fallbackCopy(text, showSuccess));
+      } else {
+        fallbackCopy(text, showSuccess);
+      }
+    }
+    function fallbackCopy(text, onSuccess) {
+      const input = document.createElement('textarea');
+      input.value = text;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      try {
+        document.execCommand('copy');
+        if (onSuccess) onSuccess();
+      } catch (e) {}
+      document.body.removeChild(input);
+    }
   </script>
 </body>
 </html>
