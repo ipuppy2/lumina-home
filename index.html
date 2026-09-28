@@ -563,12 +563,14 @@
       if (!downloadApi || downloadApi.includes('YOUR-BACKEND-DOMAIN')) { alert('下载服务尚未配置，请稍后再试。'); return; }
       const original = button.textContent;
       button.setAttribute('aria-busy', 'true'); button.textContent = '正在准备下载…';
-      const frame = document.createElement('iframe');
-      frame.src = downloadApi + '/download';
-      frame.hidden = true;
-      frame.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(frame);
-      window.setTimeout(() => frame.remove(), 60000);
+      const downloadLink = document.createElement('a');
+      downloadLink.href = downloadApi + '/download';
+      downloadLink.target = '_blank';
+      downloadLink.rel = 'noopener noreferrer';
+      downloadLink.hidden = true;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
       button.textContent = '已开始下载';
       window.setTimeout(() => { button.textContent = original; button.removeAttribute('aria-busy'); }, 1800);
     }));
