@@ -29,7 +29,7 @@ Main entry:
 index.html
 ```
 
-The download buttons request a download URL from the backend. Before publishing, replace the `lumina-download-api` meta tag in `index.html` with the public HTTPS backend origin.
+The download buttons request a download URL from `https://lumina.withqq.com` via the backend's `/download-url` endpoint. Update the `lumina-download-api` meta tag in `index.html` only if the production backend origin changes.
 
 下载地址由 backend 的 `/download-url` 接口动态返回，页面不再公开写死发布地址。
 
