@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Lumina Markdown，为 macOS 打造的专注 Markdown 阅读器。">
-  <!-- 官网下载接口使用正式后端 HTTPS 域名。 -->
+  <!-- 正式域名使用 HTTPS 后端；.local 开发域名在脚本中切换到本地后端。 -->
   <meta name="lumina-download-api" content="https://lumina.withqq.com">
   <title>Lumina Markdown · 专注阅读 Markdown</title>
   <link rel="stylesheet" href="vendor/viewerjs/viewer.min.css">
@@ -62,7 +62,7 @@
     .float-chip { position:absolute; display:flex; align-items:center; gap:8px; padding:10px 12px; border:1px solid #fff9; border-radius:12px; color:#263552; background:#fffffff2; box-shadow:0 17px 32px #1f4e8e24; font-size:11px; font-weight:750; backdrop-filter:blur(12px); }
     .float-chip b { display:grid; place-items:center; width:24px; height:24px; border-radius:8px; color:#fff; background:linear-gradient(135deg,#1e7bfd,#7757ec); }
     .chip-one { right:-8px; top:56px; animation:float 4.5s .5s ease-in-out infinite reverse; }.chip-two { left:-3px; bottom:32px; animation:float 5.3s .2s ease-in-out infinite; }.chip-two b{background:linear-gradient(135deg,#12af82,#1fa8d4)}
-    .download-note { display:flex; align-items:center; gap:7px; margin-top:14px; color:#7c89a1; font-size:11px; }.download-note span{color:#17aa7c;font-size:13px}
+    .download-note { display:flex; align-items:center; gap:7px; margin-top:14px; color:#7c89a1; font-size:11px; }.download-note span{color:#17aa7c;font-size:13px}.download-version { margin:5px 0 0; color:#7c89a1; font-size:11px; }.download-version strong { color:#53627a; font-weight:650; }
     section { padding:94px 0; scroll-margin-top:72px; }
     .section-top { display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-bottom:32px; }
     .kicker { color:var(--blue); font-size:13px; letter-spacing:1.3px; font-weight:800; text-transform:uppercase; margin-bottom:2px; }
@@ -218,6 +218,7 @@
           <p class="hero-copy">Lumina Markdown 是为 macOS 打造的 Markdown 阅读器。免费版满足日常阅读，授权版解除创作与知识库管理中的效率限制。</p>
           <div class="actions"><a class="button primary" href="#" data-download>下载 macOS 版 <span>↓</span></a><a class="button ghost" href="#plans">查看版本权益</a></div>
           <div class="download-note"><span>●</span> 适用于 macOS · 本地文件优先 · 账号授权实时同步</div>
+          <p class="download-version" aria-live="polite">当前最新版本：<strong id="latest-version">获取中…</strong></p>
           <div class="quick-points"><span>原生 macOS 体验</span><span>数学公式与图表</span><span>PDF 高质量导出</span></div>
         </div>
         <div class="product-stage" aria-label="Lumina Markdown 应用界面预览"><div class="product-glow"></div><div class="app-window"><div class="app-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="app-title">Lumina Markdown · 架构设计.md</span></div><div class="app-body"><aside class="app-side"><span></span><span></span><span></span><span></span><span></span></aside><article class="app-doc"><small>ENGINEERING / NOTES</small><h3>系统设计与阅读体验</h3><p></p><p></p><p></p><div class="code-card"><i></i><i></i><i></i></div></article></div></div><div class="float-chip chip-one"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></b>跨文档全局搜索</div><div class="float-chip chip-two"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6"></path><path d="M2.5 22v-6h6"></path><path d="M20 11.5A8.5 8.5 0 0 0 5.5 6.5L2.5 8"></path><path d="M4 12.5a8.5 8.5 0 0 0 14.5 5l3-2.5"></path></svg></b>目录实时刷新</div></div>
@@ -226,45 +227,6 @@
   </header>
 
   <main>
-    <section id="screenshots" class="screenshots reveal"><div class="wrap">
-      <div class="section-top">
-        <div class="kicker">App Screenshots</div>
-        <h2>Lumina Markdown，真实界面一览</h2>
-        <p class="section-note">从沉浸阅读到知识库管理，看看 Lumina 如何陪你处理 Markdown 文档。</p>
-      </div>
-      <div class="screenshot-carousel" role="region" aria-roledescription="carousel" aria-label="产品截图">
-        <div class="screenshot-viewport">
-          <div class="screenshot-track">
-            <div class="screenshot-page" aria-hidden="false">
-              <div class="screenshot-grid">
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/global-search.webp" alt="Lumina Markdown 跨文档搜索界面" loading="lazy" tabindex="0" role="button"></div><figcaption>跨文档全局搜索</figcaption></figure>
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/reading-settings.webp" alt="Lumina Markdown 阅读习惯设置" loading="lazy" tabindex="0" role="button"></div><figcaption>贴合习惯的排版与阅读设置</figcaption></figure>
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/diagrams.webp" alt="Lumina Markdown Mermaid 图表渲染" loading="lazy" tabindex="0" role="button"></div><figcaption>流程图与技术图表渲染</figcaption></figure>
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/export-tasks.webp" alt="Lumina Markdown 导出任务管理" loading="lazy" tabindex="0" role="button"></div><figcaption>长图与文档导出任务</figcaption></figure>
-              </div>
-            </div>
-            <div class="screenshot-page" aria-hidden="true" inert>
-              <div class="screenshot-grid">
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/pdf-preview.webp" alt="Lumina Markdown PDF 导出预览" loading="lazy" tabindex="0" role="button"></div><figcaption>PDF 导出与预览</figcaption></figure>
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/pdf-export-dialog.webp" alt="Lumina Markdown PDF 导出设置窗口" loading="lazy" tabindex="0" role="button"></div><figcaption>灵活控制 PDF 导出</figcaption></figure>
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/image-export-preview.webp" alt="Lumina Markdown 图片导出预览" loading="lazy" tabindex="0" role="button"></div><figcaption>长文档图片导出效果</figcaption></figure>
-                <figure class="screenshot"><div class="screenshot-image"><img src="images/screenshots/image-export-dialog.webp" alt="Lumina Markdown 图片导出流程" loading="lazy" tabindex="0" role="button"></div><figcaption>一键导出长图</figcaption></figure>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="screenshot-controls" role="group" aria-label="截图翻页控制">
-          <button class="screenshot-arrow" type="button" data-page-action="previous" aria-label="上一组截图" disabled>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <span class="screenshot-page-count" aria-live="polite">1 / 2</span>
-          <button class="screenshot-arrow" type="button" data-page-action="next" aria-label="下一组截图">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div></section>
-
     <section id="plans" class="reveal"><div class="wrap">
       <div class="section-top">
         <div class="kicker">Plans</div>
@@ -333,6 +295,45 @@
           <h3>拖入目录打开</h3>
           <p>把资料目录拖进应用，即可快速建立本地 Markdown 工作区。</p>
         </article>
+      </div>
+    </div></section>
+
+    <section id="screenshots" class="screenshots reveal"><div class="wrap">
+      <div class="section-top">
+        <div class="kicker">App Screenshots</div>
+        <h2>Lumina Markdown，真实界面一览</h2>
+        <p class="section-note">从沉浸阅读到知识库管理，看看 Lumina 如何陪你处理 Markdown 文档。</p>
+      </div>
+      <div class="screenshot-carousel" role="region" aria-roledescription="carousel" aria-label="产品截图">
+        <div class="screenshot-viewport">
+          <div class="screenshot-track">
+            <div class="screenshot-page" aria-hidden="false">
+              <div class="screenshot-grid">
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/global-search.webp" alt="Lumina Markdown 跨文档搜索界面" loading="lazy" tabindex="0" role="button"></div><figcaption>跨文档全局搜索</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/reading-settings.webp" alt="Lumina Markdown 阅读习惯设置" loading="lazy" tabindex="0" role="button"></div><figcaption>贴合习惯的排版与阅读设置</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/diagrams.webp" alt="Lumina Markdown Mermaid 图表渲染" loading="lazy" tabindex="0" role="button"></div><figcaption>流程图与技术图表渲染</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/export-tasks.webp" alt="Lumina Markdown 导出任务管理" loading="lazy" tabindex="0" role="button"></div><figcaption>长图与文档导出任务</figcaption></figure>
+              </div>
+            </div>
+            <div class="screenshot-page" aria-hidden="true" inert>
+              <div class="screenshot-grid">
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/pdf-preview.webp" alt="Lumina Markdown PDF 导出预览" loading="lazy" tabindex="0" role="button"></div><figcaption>PDF 导出与预览</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/pdf-export-dialog.webp" alt="Lumina Markdown PDF 导出设置窗口" loading="lazy" tabindex="0" role="button"></div><figcaption>灵活控制 PDF 导出</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/image-export-preview.webp" alt="Lumina Markdown 图片导出预览" loading="lazy" tabindex="0" role="button"></div><figcaption>长文档图片导出效果</figcaption></figure>
+                <figure class="screenshot"><div class="screenshot-image"><img data-src="images/screenshots/image-export-dialog.webp" alt="Lumina Markdown 图片导出流程" loading="lazy" tabindex="0" role="button"></div><figcaption>一键导出长图</figcaption></figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-controls" role="group" aria-label="截图翻页控制">
+          <button class="screenshot-arrow" type="button" data-page-action="previous" aria-label="上一组截图" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <span class="screenshot-page-count" aria-live="polite">1 / 2</span>
+          <button class="screenshot-arrow" type="button" data-page-action="next" aria-label="下一组截图">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </div></section>
 
@@ -485,11 +486,26 @@
     const observer = new IntersectionObserver((entries) => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), { threshold: .14 });
     document.querySelectorAll('.reveal').forEach(node => observer.observe(node));
     const screenshotPages = [...document.querySelectorAll('.screenshot-page')];
-    screenshotPages.forEach((page) => new Viewer(page.querySelector('.screenshot-grid'), {
+    const screenshotViewerOptions = {
       navbar: true,
       title: 1,
       toolbar: { zoomIn: 1, zoomOut: 1, oneToOne: 1, reset: 1, prev: 1, next: 1 },
-    }));
+    };
+    function prepareScreenshotPage(page) {
+      if (page.dataset.prepared === 'true') return;
+      page.querySelectorAll('img[data-src]').forEach(image => {
+        image.src = image.dataset.src;
+        image.removeAttribute('data-src');
+      });
+      page._viewer = new Viewer(page.querySelector('.screenshot-grid'), screenshotViewerOptions);
+      page.dataset.prepared = 'true';
+    }
+    const screenshotSectionObserver = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      prepareScreenshotPage(screenshotPages[0]);
+      screenshotSectionObserver.disconnect();
+    }, { rootMargin: '300px 0px' });
+    screenshotSectionObserver.observe(document.querySelector('#screenshots'));
     const screenshotTrack = document.querySelector('.screenshot-track');
     const screenshotPageCount = document.querySelector('.screenshot-page-count');
     const previousScreenshotButton = document.querySelector('[data-page-action="previous"]');
@@ -497,6 +513,7 @@
     let activeScreenshotPage = 0;
     function showScreenshotPage(index) {
       activeScreenshotPage = Math.max(0, Math.min(index, screenshotPages.length - 1));
+      prepareScreenshotPage(screenshotPages[activeScreenshotPage]);
       screenshotTrack.style.transform = `translateX(-${activeScreenshotPage * 100}%)`;
       screenshotPages.forEach((page, pageIndex) => {
         const isActive = pageIndex === activeScreenshotPage;
@@ -522,28 +539,38 @@
       document.querySelectorAll('.demo-panel').forEach(panel => panel.classList.toggle('active', panel.dataset.panel === target));
       document.getElementById('demo-title').textContent = demoTitles[target];
     }));
-    const downloadApi = document.querySelector('meta[name="lumina-download-api"]')?.content?.replace(/\/$/, '');
-    document.querySelectorAll('[data-download]').forEach(button => button.addEventListener('click', async (event) => {
+    const configuredDownloadApi = document.querySelector('meta[name="lumina-download-api"]')?.content?.replace(/\/$/, '');
+    const downloadApi = window.location.hostname.toLowerCase().endsWith('.local')
+      ? 'http://127.0.0.1:8900'
+      : configuredDownloadApi;
+    const latestVersionLabel = document.getElementById('latest-version');
+    if (downloadApi && latestVersionLabel) {
+      fetch(downloadApi + '/latest-version', { headers: { Accept: 'application/json' }, cache: 'no-store' })
+        .then(response => {
+          if (!response.ok) throw new Error('version lookup failed');
+          return response.json();
+        })
+        .then(payload => {
+          const version = payload?.data?.version;
+          latestVersionLabel.textContent = typeof version === 'string' && version.trim() ? version : '暂不可用';
+        })
+        .catch(() => { latestVersionLabel.textContent = '暂不可用'; });
+    } else if (latestVersionLabel) {
+      latestVersionLabel.textContent = '暂不可用';
+    }
+    document.querySelectorAll('[data-download]').forEach(button => button.addEventListener('click', (event) => {
       event.preventDefault();
       if (!downloadApi || downloadApi.includes('YOUR-BACKEND-DOMAIN')) { alert('下载服务尚未配置，请稍后再试。'); return; }
       const original = button.textContent;
       button.setAttribute('aria-busy', 'true'); button.textContent = '正在准备下载…';
-      try {
-        const response = await fetch(downloadApi + '/download-url', { headers: { Accept: 'application/json' } });
-        const payload = await response.json();
-        if (!response.ok || !payload.url) throw new Error(payload.error || '下载服务暂不可用');
-        const frame = document.createElement('iframe');
-        frame.src = payload.url;
-        frame.hidden = true;
-        frame.setAttribute('aria-hidden', 'true');
-        document.body.appendChild(frame);
-        window.setTimeout(() => frame.remove(), 60000);
-        button.textContent = '已开始下载';
-        window.setTimeout(() => { button.textContent = original; button.removeAttribute('aria-busy'); }, 1800);
-      } catch (error) {
-        alert(error.message || '下载服务暂不可用，请稍后重试。');
-        button.textContent = original; button.removeAttribute('aria-busy');
-      }
+      const frame = document.createElement('iframe');
+      frame.src = downloadApi + '/download';
+      frame.hidden = true;
+      frame.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(frame);
+      window.setTimeout(() => frame.remove(), 60000);
+      button.textContent = '已开始下载';
+      window.setTimeout(() => { button.textContent = original; button.removeAttribute('aria-busy'); }, 1800);
     }));
   </script>
 </body>
