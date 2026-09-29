@@ -656,6 +656,18 @@
     const downloadApi = window.location.hostname.toLowerCase().endsWith('.local')
       ? 'http://127.0.0.1:8900'
       : configuredDownloadApi;
+    function currentWebsiteBaseURL() {
+      const current = new URL(window.location.href);
+      if (current.hostname.toLowerCase().endsWith('.github.io')) {
+        const project = current.pathname.split('/').filter(Boolean)[0];
+        current.pathname = project ? `/${project}/` : '/';
+      } else {
+        current.pathname = '/';
+      }
+      current.search = '';
+      current.hash = '';
+      return current.toString();
+    }
     const latestVersionLabel = document.getElementById('latest-version');
     if (downloadApi && latestVersionLabel) {
       fetch(downloadApi + '/latest-version', { headers: { Accept: 'application/json' }, cache: 'no-store' })
@@ -686,7 +698,7 @@
         downloadFrame.style.cssText = 'position:fixed;width:1px;height:1px;left:-10000px;top:-10000px;border:0;';
         document.body.appendChild(downloadFrame);
       }
-      downloadFrame.src = downloadApi + '/download';
+      downloadFrame.src = downloadApi + '/download?siteBase=' + encodeURIComponent(currentWebsiteBaseURL());
       button.textContent = '已开始下载';
       window.setTimeout(() => { button.textContent = original; button.removeAttribute('aria-busy'); }, 1800);
     }));
