@@ -108,8 +108,20 @@
     .download-note { display:flex; align-items:center; gap:7px; margin-top:14px; color:#7c89a1; font-size:11px; }.download-note span{color:#17aa7c;font-size:13px}.download-version { margin:5px 0 0; color:#7c89a1; font-size:11px; }.download-version strong { color:#53627a; font-weight:650; }
     .download-progress { max-width:460px; margin-top:14px; padding:12px 14px; border:1px solid #dce7f7; border-radius:11px; background:#ffffffd9; color:#536078; font-size:12px; }
     .download-progress[hidden] { display:none; }
-    .download-progress-head { display:flex; justify-content:space-between; gap:14px; margin-bottom:8px; }
-    .download-progress-head span:last-child { color:#146cf5; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .download-progress-head { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:8px; }
+    .download-progress-value { display:flex; align-items:center; gap:7px; color:#146cf5; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .download-progress-value button { padding:2px 7px; border:1px solid #d7e0ed; border-radius:6px; color:#68758a; background:#fff; font:inherit; font-size:10px; line-height:1.4; cursor:pointer; }
+    .download-progress-value button:hover { border-color:#91baff; color:#146cf5; }
+    .download-progress-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:10px; }
+    .download-progress-actions button { padding:5px 11px; border:1px solid #d7e0ed; border-radius:7px; color:#536078; background:#fff; font:inherit; cursor:pointer; }
+    .download-progress-actions button:hover:not(:disabled) { border-color:#91baff; color:#146cf5; }
+    .download-progress-actions button:disabled { opacity:.5; cursor:not-allowed; }
+    .download-manual { display:flex; align-items:center; gap:7px; margin-top:9px; color:#68758a; font-size:11px; }
+    .download-manual button { padding:2px 7px; border:1px solid #d7e0ed; border-radius:6px; color:#146cf5; background:#fff; font:inherit; font-size:10px; line-height:1.4; cursor:pointer; transition:color .15s ease,background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease; }
+    .download-manual button:hover:not(:disabled) { border-color:#82adf5; color:#075bd4; background:#f2f7ff; box-shadow:0 2px 7px #146cf51c; }
+    .download-manual button:focus-visible { outline:2px solid #146cf5; outline-offset:2px; }
+    .download-manual button:active:not(:disabled) { transform:translateY(1px); background:#e7f0ff; }
+    .download-manual button:disabled { border-color:#d7e0ed; color:#8c98aa; background:#f5f7fa; opacity:.75; cursor:not-allowed; box-shadow:none; }
     .download-progress progress { display:block; width:100%; height:8px; overflow:hidden; border:0; border-radius:99px; background:#e5eaf2; accent-color:#146cf5; }
     .download-progress progress::-webkit-progress-bar { border-radius:99px; background:#e5eaf2; }
     .download-progress progress::-webkit-progress-value { border-radius:99px; background:linear-gradient(90deg,#146cf5,#6488ff); }
@@ -290,9 +302,17 @@
           <div class="download-note"><span>●</span> 适用于 macOS · 本地文件优先 · 账号授权实时同步</div>
           <p class="download-version" aria-live="polite">当前最新版本：<strong id="latest-version">获取中…</strong></p>
           <div class="download-progress" id="download-progress" role="status" aria-live="polite" hidden>
-            <div class="download-progress-head"><span id="download-progress-label">正在准备下载…</span><span id="download-progress-value"></span></div>
+            <div class="download-progress-head"><span id="download-progress-label">正在准备下载…</span><span class="download-progress-value"><span id="download-progress-value"></span><button type="button" id="clear-download" hidden>清除</button></span></div>
             <progress id="download-progress-bar" max="100" aria-label="安装包下载进度"></progress>
+            <div class="download-manual" id="download-manual" hidden>
+              <span>文件大小</span><span aria-hidden="true">·</span><span id="download-file-size">获取中…</span>
+              <button type="button" id="direct-download-button">直接下载</button>
+            </div>
+            <div class="download-progress-actions">
+              <button type="button" id="cancel-download">取消下载</button>
+            </div>
           </div>
+          <iframe id="direct-download-frame" title="Lumina 安装包下载" aria-hidden="true" tabindex="-1" style="position:fixed;width:1px;height:1px;left:-10000px;top:-10000px;border:0"></iframe>
           <div class="quick-points"><span>原生 macOS 体验</span><span>数学公式与图表</span><span>PDF 高质量导出</span></div>
         </div>
         <div class="product-stage" aria-label="Lumina Markdown 应用界面预览"><div class="product-glow"></div><div class="app-window"><div class="app-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="app-title">Lumina Markdown · 架构设计.md</span></div><div class="app-body"><aside class="app-side"><span></span><span></span><span></span><span></span><span></span></aside><article class="app-doc"><small>ENGINEERING / NOTES</small><h3>系统设计与阅读体验</h3><p></p><p></p><p></p><div class="code-card"><i></i><i></i><i></i></div></article></div></div><div class="float-chip chip-one"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></b>跨文档全局搜索</div><div class="float-chip chip-two"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6"></path><path d="M2.5 22v-6h6"></path><path d="M20 11.5A8.5 8.5 0 0 0 5.5 6.5L2.5 8"></path><path d="M4 12.5a8.5 8.5 0 0 0 14.5 5l3-2.5"></path></svg></b>目录实时刷新</div></div>
@@ -699,7 +719,45 @@
     const downloadProgressLabel = document.getElementById('download-progress-label');
     const downloadProgressValue = document.getElementById('download-progress-value');
     const downloadProgressBar = document.getElementById('download-progress-bar');
+    const cancelDownloadButton = document.getElementById('cancel-download');
+    const clearDownloadButton = document.getElementById('clear-download');
+    const downloadManual = document.getElementById('download-manual');
+    const downloadFileSize = document.getElementById('download-file-size');
+    const directDownloadButton = document.getElementById('direct-download-button');
+    const directDownloadFrame = document.getElementById('direct-download-frame');
+    const downloadButtons = [...document.querySelectorAll('[data-download]')];
     let downloadInProgress = false;
+    let downloadController = null;
+    let downloadGeneration = 0;
+    let directDownloadCoolingDown = false;
+    function setDownloadButtonsDisabled(disabled) {
+      downloadButtons.forEach(button => {
+        button.setAttribute('aria-disabled', String(disabled));
+        if ('disabled' in button) button.disabled = disabled;
+        button.style.pointerEvents = disabled ? 'none' : '';
+        button.style.opacity = disabled ? '.55' : '';
+      });
+    }
+    function finishDownloadState() {
+      downloadInProgress = false;
+      downloadController = null;
+      setDownloadButtonsDisabled(false);
+      cancelDownloadButton.hidden = true;
+      clearDownloadButton.hidden = false;
+      directDownloadButton.disabled = directDownloadCoolingDown;
+    }
+    function clearDownloadProgress() {
+      if (downloadInProgress) return;
+      downloadProgress.hidden = true;
+      downloadProgressLabel.textContent = '正在准备下载…';
+      downloadProgressValue.textContent = '';
+      downloadProgressBar.removeAttribute('value');
+      downloadManual.hidden = true;
+      downloadFileSize.textContent = '获取中…';
+      directDownloadButton.disabled = true;
+      cancelDownloadButton.hidden = false;
+      clearDownloadButton.hidden = true;
+    }
     function formatDownloadBytes(bytes) {
       if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
       return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -733,26 +791,39 @@
       if (downloadInProgress) return;
       if (!downloadApi || downloadApi.includes('YOUR-BACKEND-DOMAIN')) { alert('下载服务尚未配置，请稍后再试。'); return; }
       downloadInProgress = true;
-      const original = button.innerHTML;
-      button.setAttribute('aria-busy', 'true');
-      button.textContent = '正在准备下载…';
+      const generation = ++downloadGeneration;
+      const controller = new AbortController();
+      downloadController = controller;
+      setDownloadButtonsDisabled(true);
+      downloadButtons.forEach(downloadButton => {
+        downloadButton.setAttribute('aria-busy', 'true');
+        downloadButton.dataset.originalLabel = downloadButton.innerHTML;
+        downloadButton.textContent = '正在下载…';
+      });
       downloadProgressBar.removeAttribute('value');
       downloadProgressValue.textContent = '';
+      cancelDownloadButton.hidden = false;
+      clearDownloadButton.hidden = true;
+      downloadManual.hidden = false;
+      downloadFileSize.textContent = '获取中…';
+      directDownloadButton.disabled = true;
       setDownloadProgress('正在连接下载服务…');
       try {
         const endpoint = `${downloadApi}/download?siteBase=${encodeURIComponent(currentWebsiteBaseURL())}&resolve=1`;
-        const resolveResponse = await fetch(endpoint, { method: 'GET', cache: 'no-store', credentials: 'omit' });
+        const resolveResponse = await fetch(endpoint, { method: 'GET', cache: 'no-store', credentials: 'omit', signal: controller.signal });
         if (!resolveResponse.ok) throw new Error(`download endpoint returned ${resolveResponse.status}`);
         const resolved = await resolveResponse.json();
         const finalURL = new URL(resolved.downloadURL || '');
         if (finalURL.origin !== window.location.origin) {
           throw new Error('下载文件不在官网同一域名，浏览器无法读取下载进度');
         }
+        downloadManual.hidden = false;
 
-        const response = await fetch(finalURL.href, { method: 'GET', cache: 'no-store', credentials: 'omit' });
+        const response = await fetch(finalURL.href, { method: 'GET', cache: 'no-store', credentials: 'omit', signal: controller.signal });
         if (!response.ok) throw new Error(`package download returned ${response.status}`);
 
         const total = Number(response.headers.get('Content-Length')) || 0;
+        downloadFileSize.textContent = total > 0 ? formatDownloadBytes(total) : '未知';
         const chunks = [];
         let received = 0;
         if (response.body?.getReader) {
@@ -777,22 +848,58 @@
         downloadProgressBar.value = 100;
         downloadProgressLabel.textContent = `下载完成 · ${formatDownloadBytes(received)}`;
         downloadProgressValue.textContent = '100%';
-        button.textContent = '下载已完成';
+        downloadButtons.forEach(downloadButton => { downloadButton.textContent = '下载已完成'; });
       } catch (error) {
+        if (generation !== downloadGeneration) return;
         console.error('Lumina package download failed:', error);
+        if (downloadFileSize.textContent === '获取中…') downloadFileSize.textContent = '未知';
         downloadProgressBar.removeAttribute('value');
         downloadProgressValue.textContent = '';
-        downloadProgressLabel.textContent = error instanceof TypeError
-          ? '下载失败：浏览器无法读取下载内容，请检查官网与安装包的同源/CORS 设置后重试。'
-          : (error.message || '下载失败，请稍后重试。');
-        button.textContent = '下载失败，请重试';
+        if (error.name === 'AbortError') {
+          downloadProgressLabel.textContent = '下载已取消';
+          downloadButtons.forEach(downloadButton => { downloadButton.textContent = '下载已取消'; });
+        } else {
+          downloadProgressLabel.textContent = error instanceof TypeError
+            ? '下载失败：浏览器无法读取下载内容，请检查官网与安装包的同源/CORS 设置后重试。'
+            : (error.message || '下载失败，请稍后重试。');
+          downloadButtons.forEach(downloadButton => { downloadButton.textContent = '下载失败，请重试'; });
+        }
       } finally {
-        button.removeAttribute('aria-busy');
-        window.setTimeout(() => { button.innerHTML = original; downloadInProgress = false; }, 1800);
+        if (generation === downloadGeneration) {
+          downloadButtons.forEach(downloadButton => {
+            downloadButton.removeAttribute('aria-busy');
+            if (downloadButton.dataset.originalLabel) {
+              downloadButton.innerHTML = downloadButton.dataset.originalLabel;
+              delete downloadButton.dataset.originalLabel;
+            }
+          });
+          finishDownloadState();
+        }
       }
     }
-    document.querySelectorAll('[data-download]').forEach(button => button.addEventListener('click', event => {
+    cancelDownloadButton.addEventListener('click', () => {
+      if (downloadInProgress) downloadController?.abort();
+    });
+    clearDownloadButton.addEventListener('click', clearDownloadProgress);
+    directDownloadButton.addEventListener('click', () => {
+      if (downloadInProgress || directDownloadCoolingDown || directDownloadButton.disabled || !downloadApi) return;
+      directDownloadCoolingDown = true;
+      directDownloadButton.disabled = true;
+      directDownloadButton.textContent = '已开始';
+      const endpoint = `${downloadApi}/download/direct?siteBase=${encodeURIComponent(currentWebsiteBaseURL())}&_=${Date.now()}`;
+      directDownloadFrame.src = endpoint;
+      downloadProgress.hidden = false;
+      downloadProgressLabel.textContent = '已交由浏览器直接下载';
+      downloadProgressValue.textContent = '';
+      window.setTimeout(() => {
+        directDownloadCoolingDown = false;
+        directDownloadButton.disabled = downloadInProgress;
+        directDownloadButton.textContent = '直接下载';
+      }, 5000);
+    });
+    downloadButtons.forEach(button => button.addEventListener('click', event => {
       event.preventDefault();
+      if (downloadInProgress) return;
       downloadWithProgress(button);
     }));
     function copyContact(text, btn) {
