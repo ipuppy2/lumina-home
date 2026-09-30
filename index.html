@@ -813,6 +813,10 @@
         const resolveResponse = await fetch(endpoint, { method: 'GET', cache: 'no-store', credentials: 'omit', signal: controller.signal });
         if (!resolveResponse.ok) throw new Error(`download endpoint returned ${resolveResponse.status}`);
         const resolved = await resolveResponse.json();
+        const resolvedVersion = resolved?.version;
+        if (latestVersionLabel && typeof resolvedVersion === 'string' && resolvedVersion.trim()) {
+          latestVersionLabel.textContent = resolvedVersion;
+        }
         const finalURL = new URL(resolved.downloadURL || '');
         if (finalURL.origin !== window.location.origin) {
           throw new Error('下载文件不在官网同一域名，浏览器无法读取下载进度');
