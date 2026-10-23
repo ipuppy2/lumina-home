@@ -2,8 +2,8 @@
   "redirects": [
     {
       "source": "$wwwhost",
-      "destination": "$host",
-      "statusCode": 301
+      "destination": "https://md.withqq.com",
+      "statusCode": 302
     }
   ]
 }
